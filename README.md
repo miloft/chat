@@ -7,7 +7,8 @@ This project use
 ## Attention
 
 Before you start the project, open the configuration file and change the settings for your database. 
-Example:
+
+For example:
 ```
 DATABASES = {
     'default': {
