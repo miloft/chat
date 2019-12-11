@@ -6,7 +6,7 @@ This project use
 
 ## Attention
 
-Before you start the project, open the configuration file and change the settings for your database. 
+Before you start the project, open the configuration file (main/settings.py) and change the settings for your database. 
 
 For example:
 ```
