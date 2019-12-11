@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Войти</title>
+</head>
+<body>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static '/accounts/css/bootstrap.min.css'%}">
+<script src="/static/accounts/js/bootstrap.min.js"></script>
+
+<form id="contact_form" action="{% url 'accounts:login' %}" method="post">
+    {% load bootstrap3 %}
+    {% csrf_token %}
+    {% bootstrap_form login_form %}
+    {% buttons %}
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Войти</button>
+            <a class="btn btn-primary" href="/accounts/registration/" role="button" style="">Зарегистрироваться</a>
+            <p></p>
+            <p><a class="btn btn-outline-primary" href="/admin/" role="button" style="">Войти как админ</a></p>
+        </div>
+    {% endbuttons %}
+</form>
+</body>
+</html>

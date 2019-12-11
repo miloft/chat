@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Чат</title>
+</head>
+<body>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static '/users/css/bootstrap.min.css'%}" id="bootstrap-css">
+<script src="/static/users/js/bootstrap.min.js"></script>
+{% load bootstrap3 %}
+{% load i18n %}
+<div class="container">
+    <div class="jumbotron">
+    {% if not chat %}
+        <div class="panel panel-body">
+            {% trans "Невозможно начать беседу. Не найден пользователь или вы не имеете доступа к данной беседе." %}
+            <br><p><a href="/dialogs/">Назад к списку контактов</a></p>
+        </div>
+    {% else %}
+        {% load tz %}
+        <p><a href="/dialogs/">Назад к списку контактов</a></p>
+        {% if chat %}
+            <div id="messages" class="panel">
+                <div id="innerMessages">
+                    {% for message in chat.message_set.all %}
+                        {% include 'users/message.html' with message_item=message %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        <br>
+        <div id="message_form">
+            <form id="message-form" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <br>
+                <button type="submit" class="btn btn-outline-primary">Отправить</button>
+            </form>
+        </div>
+    {% endif %}
+    </div>
+    <p><a class="btn btn-primary" href="/logout/" role="button" style="">Logout</a></p>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Диалоги</title>
+</head>
+<body>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static '/users/css/bootstrap.min.css'%}" id="bootstrap-css">
+<script src="/static/users/js/bootstrap.min.js"></script>
+<div class="container">
+    <div class="jumbotron">
+        <div class="panel">
+            {% load bootstrap3 %}
+            {% load tz %}
+            {% load i18n %}
+            {% load custom_tags %}
+            {% if chats.count == 0 %}
+                <div class="panel panel-body">{% trans "Нет ни одного начатого диалога. Выберите пользователя" %}
+                    <br>
+                    {% for user in users %}
+                        <p><a href="create/{{ user.id }}/">{{ user }}</a></p>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {% trans "Выберите пользователя" %}
+                <br>
+                {% for user in users %}
+                    <p><a href="create/{{ user.id }}/">{{ user }}</a></p>
+                {% endfor %}
+                {% trans "Последние диалоги" %}
+                {% for chat in chats %}
+                <div class="list-group-item">
+                    {% with last_message=chat.message_set.last mes=chat.is_readed_set.count key=chat.id %}
+                        {% get_companion user chat as companion %}
+                            <div class="reply-body">
+                                <ul class="list-inline">
+                                    <li class="drop-left-padding">
+                                        <strong class="list-group-item-heading"><a href="{{ chat.id }}/">{{ companion.username }}</a></strong>
+                                        {%for key, value in unrdms.items  %}
+                                            {% if key == chat.id %}
+                                                {% if value != 0 %}
+                                                    {% trans "Новых сообщений: " %}{{ value }}
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </li>
+                                    <li class="pull-right text-muted"><small>{{ last_message.pub_date|utc }}</small></li>
+                                </ul>
+                                <div class="row">
+                                  <div class="col-12 text-truncate">
+                                    {{ last_message.message|safe|striptags }}
+                                  </div>
+                                </div>
+                            </div>
+                    {% endwith %}
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <p><a class="btn btn-primary" href="/logout/" role="button" style="">Logout</a></p>
+</div>
+</body>
+</html>
