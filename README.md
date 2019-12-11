@@ -41,11 +41,11 @@ python manage.py runserver
 
 0. Open the browser at '127.0.0.0:8000'
 1. Registration two or more users
-2. Log in as the first user
+2. Log in as the 1st user
 3. Select user for dialog
 4. Write a text message and send it
 5. Log out
-6. Log in as the second user
+6. Log in as the 2nd user
 7. Open a dialog with the 1st user and write the answer
 
 **For the administrator:**
