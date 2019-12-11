@@ -29,7 +29,8 @@ pip install django-bootstrap3
 To start a chat just run:
 
 ```
-python manage.py makemigrates
+python manage.py makemigrations
+python manage.py makemigrations users 
 python manage.py migrate
 python manage.py createsuperuser #for create admin
 python manage.py runserver
